@@ -1,0 +1,50 @@
+  * {
+    padding: 0;
+    margin:0;
+  }
+  #home {
+    /* font-family: "Avenir", Helvetica, Arial, sans-serif; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    width: 100%;
+    height: 100%;
+  }
+  .sidebar-container {
+    transition: width 1s;
+    width: 210px !important;
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    text-align: left;
+    z-index: 1001;
+  }
+  
+  /* 控制菜单滚动条样式 */
+  .sidebar-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  .sidebar-container::-webkit-scrollbar-thumb {
+    display: none ;
+    background-color: #ffffff4f;
+    border-radius: 3px ;
+  }
+  .sidebar-container:hover::-webkit-scrollbar-thumb {
+    display: inline-block;
+  }
+  
+  .main-container {
+    /* 注意这里的height不是100% */
+    height: 800px;               
+    width: calc(100% - 210px);
+    left: 210px;
+    position: relative;
+    overflow: auto;
+  }
+  .breadCrumb-customize{
+    height:40px;
+    line-height:40px;
+  }

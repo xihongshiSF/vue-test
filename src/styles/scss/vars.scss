@@ -1,0 +1,61 @@
+$color-primary: #20a0ff; //#18c79c
+// 默认字体颜色
+$color-main:rgba(131, 239, 249,0.6);
+// $color-border:#004D5F;
+// 默认border颜色
+$color-border:#063E50;
+// 默认字体划过颜色
+$color-hover:hsla(0, 0%, 100%, 0.6);
+
+// 突出显示文字、编辑按钮
+$color-text:rgba(249, 173, 95, 0.6);
+$color-text_hover:rgba(249, 173, 95, 0.8);
+$color-text_disabled:rgba(249, 173, 95, 0.4);
+
+// 导航选中、table选中、icon
+$color-title_normal:rgba(251, 171, 118, 1);
+$color-title:rgba(251, 171, 118, 0.6);
+$color-title_hover:rgba(251, 171, 118, 0.8);
+$color-title_disabled:rgba(251, 171, 118, 0.4);
+
+// 弹出层---确定按钮背景颜色
+$color-dialog:rgba(18, 127, 160,0.8);
+$color-dialog_acitve:#03A7DC;
+// 弹出层列表字体颜色
+$color-list:rgba(2, 211, 250, 0.6);
+// 弹出层列表hover背景
+$color-list_hover:rgba(0,211,250,0.15);
+// 新增按钮
+$color-add_normal:rgba(82, 193, 160, 0.6);
+$color-add:rgba(82, 193, 160, 0.8);
+$color-add_act:rgba(82, 193, 160,1);
+$color-add_disabled:rgba(82, 193, 160,0.4);
+
+// 删除
+$color-remove:rgba(246, 111, 108,0.6);
+$color-remove_hover:rgba(246, 111, 108,0.8);
+$color-remove_disabled:rgba(246, 111, 108,0.4);
+// 默认表单border颜色
+$color-input_border:rgba(255,255,255,0.3);
+
+
+// 渐变border
+@mixin linear-gradient-border($border:1px solid #ccc, $dir:top, $startColor:#fbc855, $endColor:#C15C6D) {
+    border: $border;
+    border-image: -webkit-linear-gradient($startColor, $endColor) 1 1;
+    border-image: -moz-linear-gradient($startColor, $endColor) 1 1;
+    border-image: -ms-linear-gradient($startColor, $endColor) 1 1;
+    border-image: -o-linear-gradient($startColor, $endColor) 1 1;
+    border-image: linear-gradient($startColor, $endColor) 1 1;
+}
+
+//***********背景线性渐变**************
+@mixin linear-gradient($dir: top, $startColor:#062C41, $endColor:rgba(11,28,41,0.9)) {
+    background: $startColor;
+    background: -webkit-linear-gradient($dir, $startColor, $endColor);
+    background: -moz-linear-gradient($dir, $startColor, $endColor);
+    background: -ms-linear-gradient($dir, $startColor, $endColor);
+    background: -o-linear-gradient($dir, $startColor, $endColor);
+    background: linear-gradient($dir, $startColor, $endColor);
+
+}

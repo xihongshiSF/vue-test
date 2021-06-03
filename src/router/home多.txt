@@ -1,0 +1,90 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import home from "@/home.vue"
+
+Vue.use(Router);
+
+let routes= [
+  {
+    path: '/',
+    // redirect: "/login"
+    redirect: "/echarts"
+  },{
+    path: '/login',
+    component: (resolve)=>require(["@/login.vue"],resolve),
+  },{
+
+      path: '/test',
+      name: 'test',
+      component:home,
+      meta:{
+        //标签权限
+        tabList:[{
+          label:"电话",//方法2和方法3都需要写
+          name:"personName",             //前2个属性是方法2和方法3共有，第3个属性是方法2才有
+          component:"personName"     //引入什么组件
+        },{
+          label:"手机",
+          name:"phone",
+          component:"phone"
+        }]
+      }
+  },{
+      path: '/elements',
+      name: 'elements',
+      component:home,
+      children:[{
+        path: '/eleTable',
+        name: 'eleTable',
+        component:(resolve)=>require(["@/views/elements/eleTable.vue"],resolve)
+      }]
+  }, {
+
+      path: '/echarts',
+      name: 'echarts',
+      component:home,
+      children:[
+        {
+          path: '/echarts1',
+          name: 'echarts1',
+          component:  (resolve)=>require(["@/views/echarts/echarts1.vue"],resolve)
+        },{
+          path: '/echarts2',
+          name: 'echarts2',
+          component:  (resolve)=>require(["@/views/echarts/echarts2.vue"],resolve)
+        },{
+          path:"/pieBar",
+          name:"pieBar",
+          component: (resolve)=>require(["@/views/echarts/pieBar.vue"],resolve)
+        }
+      ]
+  }, {
+    path: '/options',
+    name: 'options',
+    component:  home,    //一级菜单
+    children:[{                                                 //二级菜单
+      path: '/home/option3',
+      name: 'option3',
+      component:  (resolve)=>require(["@/views/options/option3.vue"],resolve)
+    },{
+      path: '/home/option4',
+      name: 'option4',
+      component:  (resolve)=>require(["@/views/options/option4/option4.vue"],resolve),
+      children:[{                                               //三级菜单
+        path: '/home/option5',
+        name: 'option5',
+        component:  (resolve)=>require(["@/views/options/option4/option5.vue"],resolve)
+      }]
+    }]
+  },{
+    path: '/404',
+    component: (resolve)=>require(["@/404.vue"],resolve),
+    name: '404'
+  },{
+    path: '*',
+    redirect:'/404'
+  }
+];
+export default new Router({
+  routes
+})

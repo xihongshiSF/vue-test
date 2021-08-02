@@ -135,21 +135,21 @@ export default {
       //  map.addlayer可以实现加载单独的图层和图层组
       //  单独的图层
       return new ol.layer.Tile({
-        /* source: new ol.source.Stamen({
+        source: new ol.source.Stamen({
             layer: "toner"
-          }) */
+          }),
         /* source: new ol.source.OSM(), */
         /* source: new ol.source.OSM({
               url: 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
-          }) */
+          }), */
         /* source: new ol.source.OSM({
               url: 'https://www.google.com/maps/vt/pb=!1m4!1m3!1i{z}!2i{x}!3i{y}!2m3!1e0!2sm!3i380072576!3m8!2szh-CN!3scn!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0!5m1!1e0'
           }),
           wrapX: false */
         // 谷歌在线地图
-        source: new ol.source.XYZ({
+        /* source: new ol.source.XYZ({
           url: "https://khms0.google.com/kh/v=883?x={x}&y={y}&z={z}"
-        }),
+        }), */
         wrapX: false
       });
       //图层组

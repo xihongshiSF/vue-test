@@ -8,7 +8,7 @@ let routes = [
     path: '/',
     //重点:没有登录页面首先要加载哪个页面在这里看
     //1.redirect只用于初始化时页面跳转到哪里，以后浏览器刷新不会走这里，2.绝对不能写'/home',必须是某个具体的页面
-    redirect: sessionStorage.firstRoute ? JSON.parse(sessionStorage.firstRoute) : "/vueHighUse/keepAlive"
+    redirect: sessionStorage.firstRoute ? JSON.parse(sessionStorage.firstRoute) : "/keepAlive"
   }, {
     path: '/login',
     component: (resolve) => require(["@/login.vue"], resolve),
@@ -83,15 +83,15 @@ let routes = [
         name: 'elements练习',
         component: (resolve) => require(["@/views/test.vue"], resolve),
         children: [{
-          path: 'eleTable',
+          path: '/eleTable',
           name: '合并 el-table 中的行和列',
           component: (resolve) => require(["@/views/elements/eleTable.vue"], resolve)
         }, {
-          path: 'eleFormReg',
+          path: '/eleFormReg',
           name: '表单自定义验证',
           component: (resolve) => require(["@/views/elements/eleFormReg.vue"], resolve)
         }, {
-          path: 'dynamicTable',
+          path: '/dynamicTable',
           name: '动态表格',
           component: (resolve) => require(["@/views/elements/dynamicTable.vue"], resolve),
           meta: {
@@ -107,7 +107,7 @@ let routes = [
         component: (resolve) => require(["@/views/test.vue"], resolve),
         children: [
           {
-            path: 'circularPie',
+            path: '/circularPie',
             name: '圆环饼状图',
             component: (resolve) => require(["@/views/echarts/circularPie.vue"], resolve)
           }/* ,{
@@ -115,23 +115,23 @@ let routes = [
           name: 'echarts2',
           component:  (resolve)=>require(["@/views/echarts/echarts2.vue"],resolve)
         } */, {
-            path: "pieBar",
+            path: "/pieBar",
             name: "饼状图柱状图切换",
             component: (resolve) => require(["@/views/echarts/pieBar.vue"], resolve)
           }, {
-            path: "signalTimeChart",
+            path: "/signalTimeChart",
             name: "信号持续时间图",
             component: (resolve) => require(["@/views/echarts/signalTimeChart.vue"], resolve)
           }, {
-            path: "erChart",
+            path: "/erChart",
             name: "实体关系图",
             component: (resolve) => require(["@/views/echarts/erChart.vue"], resolve)
           }, {
-            path: "peopleRalation",
+            path: "/peopleRalation",
             name: "人物关系图",
             component: (resolve) => require(["@/views/echarts/peopleRalation.vue"], resolve)
           }, {
-            path: "autofillValue",
+            path: "/autofillValue",
             name: "x轴时间自动补充",
             component: (resolve) => require(["@/views/echarts/autofillValue.vue"], resolve)
           }
@@ -147,17 +147,17 @@ let routes = [
         component: (resolve) => require(["@/views/test.vue"], resolve),
         children: [
           {
-            path: 'gojsToTree',
+            path: '/gojsToTree',
             name: 'gojs：json数据生成树',
             component: (resolve) => require(["@/views/jsPlugin/gojsToTree.vue"], resolve)
           },
           {
-            path: 'flowChart',
+            path: '/flowChart',
             name: 'gojs：数据流程图',
             component: (resolve) => require(["@/views/jsPlugin/gojsToTree.vue"], resolve)
           },
           {
-            path: 'knowledgeGraph',
+            path: '/knowledgeGraph',
             name: 'G6:知识图谱',
             component: (resolve) => require(["@/views/jsPlugin/gojsToTree.vue"], resolve)
           }
@@ -172,20 +172,20 @@ let routes = [
         name: '系统练习(有3级)',
         component: (resolve) => require(["@/views/test.vue"], resolve),    //一级菜单
         children: [{                                                 //二级菜单
-          path: 'loginOtherSystem',
+          path: '/loginOtherSystem',
           name: '单点登录',
           component: (resolve) => require(["@/views/projectTest/loginOtherSystem.vue"], resolve)
         }, {
-          path: 'option4',
+          path: '/option4',
           name: 'option4',
           component: (resolve) => require(["@/views/projectTest/option4/option4.vue"], resolve),
           children: [{                                               //三级菜单
-            path: 'option5',
+            path: '/option5',
             name: 'option5',
             component: (resolve) => require(["@/views/projectTest/option4/option5.vue"], resolve)
           }]
         }, {
-          path: 'iframeOtherSys',
+          path: '/iframeOtherSys',
           name: '使用iframe嵌套其它系统',
           component: (resolve) => require(["@/views/projectTest/iframeOtherSys.vue"], resolve),
         }],
@@ -197,7 +197,7 @@ let routes = [
         name: 'css练习',
         component: (resolve) => require(["@/views/test.vue"], resolve),    //一级菜单
         children: [{                                                 //二级菜单
-          path: 'transform',
+          path: '/transform',
           name: '文字旋转效果',
           component: (resolve) => require(["@/views/cssPractice/transform.vue"], resolve)
         }],
@@ -209,11 +209,11 @@ let routes = [
         name: 'vuex练习',
         component: (resolve) => require(["@/views/test.vue"], resolve),    //一级菜单
         children: [{                                                 //二级菜单
-          path: 'vuexMode',
+          path: '/vuexMode',
           name: '使用vuex监控store数据变化',
           component: (resolve) => require(["@/views/vuexPractice/vuexMode.vue"], resolve)
         },{                                                 //二级菜单
-          path: 'storeMode',
+          path: '/storeMode',
           name: 'Vue 简单状态管理—store模式',
           component: (resolve) => require(["@/views/vuexPractice/storeMode/storeMode.vue"], resolve)
         }],
@@ -239,7 +239,7 @@ let routes = [
         name: '父子组件的应用',
         component: (resolve) => require(["@/views/test.vue"], resolve),    //一级菜单
         children: [{                                                 //二级菜单
-          path: 'differentStyle',
+          path: '/differentStyle',
           name: '同一子组件写不同样式',
           component: (resolve) => require(["@/views/componentUse/differentStyle.vue"], resolve)
         }],
@@ -251,7 +251,7 @@ let routes = [
         name:'sass的应用',
         component:(resolve) => require(["@/views/test.vue"], resolve),
         children:[{
-          path:'dialogManage',
+          path:'/dialogManage',
           name:'系统文件管理',
           component: (resolve) => require(["@/views/sassUse/dialogManage.vue"], resolve)
         }]

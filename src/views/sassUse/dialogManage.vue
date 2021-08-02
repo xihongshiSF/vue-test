@@ -451,6 +451,7 @@ export default {
                         })*/
           //接口参数一般传对象，这里比较特殊
           let config = {
+            // onUploadProgress是AXIOS的其中一个选项
             onUploadProgress: progressEvent => {
               // progressEvent.loaded:已上传文件大小
               // progressEvent.total:被上传文件的总大小

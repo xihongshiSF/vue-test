@@ -8,19 +8,92 @@
 // const { addDevServerEntrypoints } = require("webpack-dev-server");
 
 // console.log(2);  //判断main.js和commonFn.js的执行顺序
-let COMMONFN={
-  transData:function (list,idStr,pidStr){
+let COMMONFN = {
+  // 监听页面某个元素的变化
+  mutationOfDom:function(){
+    debugger
+    let config = {
+      attributes: true, //目标节点的属性变化
+      childList: true, //目标节点的子节点的新增和删除
+      characterData: true, //如果目标节点为characterData节点(一种抽象接口,具体可以为文本节点,注释节点,以及处理指令节点)时,也要观察该节点的文本内容是否发生变化
+      subtree: true, //目标节点所有后代节点的attributes、childList、characterData变化
+    };
+    let target=Array.from(document.getElementsByClassName('el-select-dropdown')).filter(item=>!item.style.display)[0];
+    const mutationCallback = (mutationsList) => {
+    for(let mutation of mutationsList) {
+        let type = mutation.type;
+        switch (type) {
+            case "childList":
+                console.log("A child node has been added or removed.");
+                break;
+            case "attributes":
+                console.log(`The ${mutation.attributeName} attribute was modified.`);
+                break;
+            case "subtree":
+                console.log(`The subtree was modified.`);
+                break;
+            default:
+                break;
+        }
+      }
+    };
+    let observe = new MutationObserver(mutationCallback);
+    observe.observe(target, config);
+  },
+  // 屏幕自适应
+  fitScrren: function () {
+    (function (win) {
+      var bodyStyle = document.createElement('style')
+      bodyStyle.innerHTML = `body{width:1920px; height:1080px!important;}`
+      document.documentElement.firstElementChild.appendChild(bodyStyle)
+      // 下拉列表样式
+      /* var bodyStyle = document.createElement('style')
+      bodyStyle.innerHTML = `.el-select-dropdown{top:${}px;left:${}px;}`
+      document.documentElement.firstElementChild.appendChild(bodyStyle) */
+      
+      function refreshScale() {
+        let docWidth = document.documentElement.clientWidth;
+        let docHeight = document.documentElement.clientHeight;
+        let designWidth = 1920,
+          designHeight = 1080,
+          widthRatio = docWidth / designWidth,
+          heightRatio = docHeight / designHeight;
+          window.widthRatio=widthRatio;
+          window.heightRatio=heightRatio;
+        document.body.style = `transform:scale(${widthRatio},${heightRatio});transform-origin:left top;`;
+        // 应对浏览器全屏切换前后窗口因短暂滚动条问题出现未占满情况
+        setTimeout(function () {
+          var lateWidth = document.documentElement.clientWidth,
+            lateHeight = document.documentElement.clientHeight;
+          if (lateWidth === docWidth) return;
+
+          widthRatio = lateWidth / designWidth
+          heightRatio = lateHeight / designHeight
+          document.body.style = "transform:scale(" + widthRatio + "," + heightRatio + ");transform-origin:left top;"
+        }, 0)
+      }
+      refreshScale()
+
+      win.addEventListener("pageshow", function (e) {
+        if (e.persisted) { // 浏览器后退的时候重新计算
+          refreshScale()
+        }
+      }, false);
+      win.addEventListener("resize", refreshScale, false);
+    })(window)
+  },
+  transData: function (list, idStr, pidStr) {
     // debugger
-    let result=[],temp={};
-    for(let i=0;i<list.length;i++){
-      temp[list[i][idStr]]=list[i];
+    let result = [], temp = {};
+    for (let i = 0; i < list.length; i++) {
+      temp[list[i][idStr]] = list[i];
     }
-    for(let j=0;j<list.length;j++){
-      let tempVp=temp[list[j][pidStr]];
-      if(tempVp){
-        if(!tempVp["children"]) tempVp["children"]=[];
+    for (let j = 0; j < list.length; j++) {
+      let tempVp = temp[list[j][pidStr]];
+      if (tempVp) {
+        if (!tempVp["children"]) tempVp["children"] = [];
         tempVp["children"].push(list[j]);
-      }else{
+      } else {
         result.push(list[j]);
       }
     }
@@ -30,7 +103,7 @@ let COMMONFN={
    *  根据按钮的唯一标识找到当前按钮的权限，是否隐藏，0代表隐藏，1代表展示
    *  code：当前按钮的唯一标识
    * */
-  findAuthByCode:(code) => {
+  findAuthByCode: (code) => {
     let isShow = false;
     function findAuth(list) {
       let lists = list || authList;
@@ -49,13 +122,13 @@ let COMMONFN={
       })
     }
     findAuth();
-  //返回为1表示展示，为0表示隐藏
+    //返回为1表示展示，为0表示隐藏
     return isShow
   },
-  btnCodeArray: function (){
-    let btnCodes=[],menuData=JSON.parse(sessionStorage.getItem("menuData"));
-    for(let item in menuData){
-      if(menuData[item].permissions)  btnCodes=btnCodes.concat(menuData[item].permissions)
+  btnCodeArray: function () {
+    let btnCodes = [], menuData = JSON.parse(sessionStorage.getItem("menuData"));
+    for (let item in menuData) {
+      if (menuData[item].permissions) btnCodes = btnCodes.concat(menuData[item].permissions)
     }
     return btnCodes;
   },
@@ -63,17 +136,17 @@ let COMMONFN={
  * 防抖，
  * 用户不管怎么频繁调用，都只在延迟时间结束时调用函数
  */
-  debounce:function (fn, delay) {
+  debounce: function (fn, delay) {
     // 维护一个 timer
     let timer = null;
 
-    return function() {
+    return function () {
       // 通过 ‘this’ 和 ‘arguments’ 获取函数的作用域和变量
       let context = this;
       let args = arguments;
 
       clearTimeout(timer);
-      timer = setTimeout(function() {
+      timer = setTimeout(function () {
         fn.apply(context, args);
       }, delay);
     }
@@ -83,22 +156,22 @@ let COMMONFN={
    * 节流，
    * 用户不管怎么频繁调用，都会在规定的时间内一定执行一次函数，不管延迟时间有没有结束
    */
-  throttle  : function(func,delay){
+  throttle: function (func, delay) {
     var timer = null;
     var startTime = Date.parse(new Date());
 
-    return function(){
+    return function () {
       var curTime = Date.parse(new Date());
-      var remaining = delay-(curTime-startTime);
+      var remaining = delay - (curTime - startTime);
       var context = this;
       var args = arguments;
 
       clearTimeout(timer);
-      if(remaining<=0){
-        func.apply(context,args);
+      if (remaining <= 0) {
+        func.apply(context, args);
         startTime = Date.parse(new Date());
-      }else{
-        timer = setTimeout(func,remaining);
+      } else {
+        timer = setTimeout(func, remaining);
       }
     }
   },
@@ -127,13 +200,13 @@ let COMMONFN={
     }
   } */
 
-  throttle1:function (fn, delay = 500) {
+  throttle1: function (fn, delay = 500) {
     let timer;
     let last;
-    return function(e){
+    return function (e) {
       let _this = this;
       let now = Number(new Date());
-      if(last && now - last < delay) {
+      if (last && now - last < delay) {
         clearTimeout(timer)
         timer = setTimeout(() => {
           last = now;
@@ -163,12 +236,12 @@ let COMMONFN={
    * @param {Function} fn 函数
    * @param {Number} delay
    */
-  debounce1:function (fn, delay = 1000 ) {
+  debounce1: function (fn, delay = 1000) {
     let timeout;
-    return function() {
+    return function () {
       let _this = this;
       let args = arguments;
-      if(timeout) {
+      if (timeout) {
         clearTimeout(timeout)
       }
       timeout = setTimeout(() => {
@@ -234,7 +307,7 @@ let COMMONFN={
   /**
    *  链接websocket
    * */
-  wsConnect:function (url, option, fcs) {
+  wsConnect: function (url, option, fcs) {
     if ('WebSocket' in window) {
       var reTimer = null;
       // 在new一个websocket对象时ws连接就已建立
@@ -290,14 +363,14 @@ let COMMONFN={
   /**
    *  数组对象去重
    */
-  OutOfReapetObj:function (arr) {
+  OutOfReapetObj: function (arr) {
     let temp_obj = new Object()
     let backArr = []
-    for(var temp in arr){
+    for (var temp in arr) {
       temp_obj[JSON.stringify(arr[temp])] = 1
     }
     backArr = Object.keys(temp_obj)
-    for(var temp2 in backArr){
+    for (var temp2 in backArr) {
       backArr[temp2] = JSON.parse(backArr[temp2])
     }
     return backArr;
@@ -319,7 +392,7 @@ let COMMONFN={
 
   /*方法1：*/
 
-  UniqueArr:function (arr) {
+  UniqueArr: function (arr) {
     var res = [];
     var obj = {};
     for (var v of arr) {
@@ -344,7 +417,7 @@ let COMMONFN={
    * @person : lijia
    */
 
-  uuid:function () {
+  uuid: function () {
     var s = [];
     var hexDigits = "0123456789abcdef";
     for (var i = 0; i < 36; i++) {
@@ -362,30 +435,30 @@ let COMMONFN={
   /**
    * 对象继承
    */
-  extend:function (child,father){
-    for(let key in father){
-      if(child[key]) {
+  extend: function (child, father) {
+    for (let key in father) {
+      if (child[key]) {
         break;
-      }else{
-        child[key]=father[key]
+      } else {
+        child[key] = father[key]
       }
     }
   },
 
   /* 随机生成颜色 */
-  getRandomColor:function (){
-    var colorValue = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+  getRandomColor: function () {
+    var colorValue = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
     var s = "#";
-    for (var i=0;i<6;i++) {
-      s+=colorValue[Math.floor(Math.random()*16)];
+    for (var i = 0; i < 6; i++) {
+      s += colorValue[Math.floor(Math.random() * 16)];
     }
-    
+
     return s;
-  } ,
+  },
 
   /* 解析url地址栏中的参数 */
-  getUrlKey:function (name) {
-      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
+  getUrlKey: function (name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
   },
 
   // 用法如下：
@@ -402,9 +475,9 @@ let COMMONFN={
      str:原字符串，
      reg:原字符串中匹配的字符,
      cha:在匹配的字符串前添加的字符*/
-  addChaBeforeStr:function(str,reg,cha){
+  addChaBeforeStr: function (str, reg, cha) {
     // return str.split("").map(item=>reg.test(item)?cha+item:item).join("")
-    return str.split("").map(item=>reg.includes(item)?cha+item:item).join("")
+    return str.split("").map(item => reg.includes(item) ? cha + item : item).join("")
 
   },
 
@@ -418,8 +491,8 @@ let COMMONFN={
 
 
   /* 获取x到y之间的随机数 */
-  getRandom:function(){
-    return Math.floor(Math.random()*(y-x)+y)
+  getRandom: function () {
+    return Math.floor(Math.random() * (y - x) + y)
   }
 }
 

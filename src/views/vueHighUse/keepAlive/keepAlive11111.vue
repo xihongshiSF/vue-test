@@ -1,27 +1,28 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-28 22:36:54
- * @LastEditTime: 2021-07-06 12:51:32
+ * @LastEditTime: 2021-07-06 12:40:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-test\src\views\vueHighUse\keepAlive\keepAlive.vue
 -->
 <template>
   <div>
-    <router-link to=""></router-link>
-    <router-view></router-view>
     <!--方法3：动态添加标签，使用element中的<el-tabs>组件，结合路由-->
+       <router-link to="/personName">哈哈
+      </router-link>
+     <router-view></router-view>
     <el-tabs v-model="activeName">
-      <el-tab-pane
-        v-for="(item,index) in childTabs"
-        :label="item.label"
-        :name="item.name"
-        :key="index"
-      >
-        <!--这里是重点-->
-        <component :is="item.component" @changeData="changeData"></component>
-        
-      </el-tab-pane>
+        <el-tab-pane
+          v-for="(item,index) in childTabs"
+          :label="item.label"
+          :name="item.name"
+          :key="index"
+        >
+          <!--这里是重点-->
+          <component :is="item.component" @changeData="changeData"></component>
+          
+        </el-tab-pane>
       <p v-text="testModel"></p>
     </el-tabs>
   </div>
@@ -60,13 +61,13 @@ export default {
     }
   },
   mounted() {
-    this.childTabs = this.$route.meta.tabList;
+    /* this.childTabs = this.$route.meta.tabList;
     // 重点：动态渲染当前高亮的tab页
     this.activeName=this.childTabs[0].name,
 
     setTimeout(() => {
       this.testModel = "11111111111111";
-    }, 5000);
+    }, 5000); */
   }
 };
 </script>

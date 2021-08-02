@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-06-08 17:40:58
+ * @LastEditTime: 2021-07-12 21:27:52
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue-test\src\main.js
+ */
 // console.log(1);   //判断main.js和commonFn.js的执行顺序
 
 // The Vue build version to load with the `import` command
@@ -19,7 +27,7 @@ Vue.use(htmlToPdf)
 
 import less from 'less'
 Vue.use(less)
-
+import path from 'path'
 
 console.log("store",store)
 //公共函数
@@ -62,7 +70,7 @@ new Vue({
 
 /* 路由守卫 */
 
-router.beforeEach((to, from, next) => {
+ router.beforeEach((to, from, next) => {
   if(JSON.parse(sessionStorage.authData)=='权限变化后'){
     next();
   }

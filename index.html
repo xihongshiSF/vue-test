@@ -1,21 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-18 15:21:59
+ * @LastEditTime: 2021-07-12 21:45:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue-test（自己练习vue项目）\index.html
+-->
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>vue-test</title>
-    <!-- 注意这里的script加载顺序，commonfn要写在main.js前边，main.js才能引用commonFn中的值 -->
-    <script src="static/util/regExp.js"></script>
-    <script src="static/util/commonFn.js"></script>
-    <link rel="stylesheet" href="static/Build/Cesium/Widgets/widgets.css">
-    <link rel="stylesheet" href="./static/ol/ol.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-    <script src="static/Build/Cesium/Cesium.js"></script>
-    <script src="./static/config.js"></script>
-    <script src="static/ol/ol.js"></script>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>vue-test</title>
+  <!-- 注意这里的script加载顺序，commonfn要写在main.js前边，main.js才能引用commonFn中的值 -->
+  <script src="static/util/regExp.js"></script>
+  <script src="static/util/commonFn.js"></script>
+  <link rel="stylesheet" href="static/Build/Cesium/Widgets/widgets.css">
+  <link rel="stylesheet" href="./static/ol/ol.css">
+  <style>
+    body{
+      width: 1920px!important;
+      height: 1080px!important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script src="static/Build/Cesium/Cesium.js"></script>
+  <script src="./static/config.js"></script>
+  <script src="static/ol/ol.js"></script>
+</body>
+
 
 </html>

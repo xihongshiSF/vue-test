@@ -37,17 +37,29 @@ export default {
         // imageryProvider: Cesium.createTileMapServiceImageryProvider({
         //   url: Cesium.buildModuleUrl("Assets/Textures/NaturalEarthII")
         // })
-        imageryProvider:new Cesium.SingleTileImageryProvider({
+        /* imageryProvider:new Cesium.SingleTileImageryProvider({
           url: require("@/assets/imgCesium/3dMap.jpg")
+          // layers: 'htth_basemap:world'
+        }) */
+        imageryProvider:new Cesium.UrlTemplateImageryProvider({
+          // url: "/tiles/{z}/{x}/{y}.png", 
+          // url: "http://192.168.31.231:8080/tiles/{z}/{x}/{y}.png", //http://192.168.31.231:8080
+          url: "http://192.168.31.231:8080/tiles/{z}/{x}/{y}.png", //http://192.168.31.231:8080
+          fileExtension:"png"
           // layers: 'htth_basemap:world'
         })
       })
-      // viewer.imageryLayers.addImageryProvider(
-      //   new Cesium.SingleTileImageryProvider({
-      //     url: require("@/assets/imgCesium/3dMap.jpg")
-      //     // layers: 'htth_basemap:world'
-      //   })
-      // );
+      /* viewer.imageryLayers.addImageryProvider(
+        new Cesium.SingleTileImageryProvider({
+          url: "http://192.168.31.231:8080/tiles/{z}/{x}/{y}.png"
+          // layers: 'htth_basemap:world'
+        })
+      ); */
+      //  viewer.imageryLayers.addImageryProvider(
+      //               new Cesium.createOpenStreetMapImageryProvider({
+      //                   //url: "https://a.tile.openstreetmap.org/"
+      //                   url: "http://192.168.31.231:8080/tiles/{z}/{x}/{y}.png"
+      //               }));
       viewer.camera.flyTo({
         destination: Cesium.Cartesian3.fromDegrees(
           104.06454546,

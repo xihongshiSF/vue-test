@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-18 00:07:38
+ * @LastEditTime: 2021-07-13 00:13:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue-test（自己练习vue项目）\src\App.vue
+-->
 <template>
   <div id="app">
     <router-view v-if="isShowPage" /><!-- 不点击浏览器刷新界面也能刷新浏览器 -->
@@ -16,6 +24,38 @@ export default {
     };
   },
   mounted() {
+    document.body.style.zoom=window.screen.width/1920;
+    // 自适应屏幕
+    // COMMONFN.fitScrren();
+    // 监听页面某个元素是否发生变化
+    // COMMONFN.mutationOfDom();
+    /* Array.from(document.getElementsByClassName("el-select")).forEach(item=>{
+      debugger
+      item.onclick=function(){
+        debugger
+        let target=window.event.target;
+        debugger
+        // if(target)
+      }
+    }) */
+    /* setTimeout(()=>{
+      document.getElementsByClassName("el-select")[0].onclick=function(){
+        // COMMONFN.mutationOfDom();
+        let target=Array.from(document.getElementsByClassName('el-select-dropdown')).filter(item=>!item.style.display)[0];
+        var bodyStyle = document.createElement('style')
+        debugger
+
+        bodyStyle.innerHTML = 
+        `.el-select-dropdown{top:${Number(target.style.top.split('p')[0])*(1/window.heightRatio)}px!important;
+        left:${Number(target.style.left.split('p')[0])*(1/window.widthRatio)}px!important;
+        transform: scale(${1/window.widthRatio}, ${1/window.heightRatio});}`
+        // width:${Number(target.style.width.split('p')[0])*(1/window.widthRatio)}px!important;
+        // height:${Number(target.style.height.split('p')[0])*(1/window.heightRatio)}px!important;
+        document.documentElement.firstElementChild.appendChild(bodyStyle)
+      }
+    },5000) */
+    
+      
     console.log(this.$route.path);
     // 测试require 的使用
     console.log("require", routeData);
